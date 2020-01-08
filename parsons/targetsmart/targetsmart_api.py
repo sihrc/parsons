@@ -266,6 +266,113 @@ class Service(object):
 
         return Table([self.connection.request(url, args=args, raw=True)['match_data']])
 
+    def dictionary(self, field: str = None, prefix: str = None):
+        """
+        Returns information about the different data fields available.
+        Explore human readable descriptions for component fields,
+        statistical information about values for those fields, and discover
+        new or updated fields given the following arguments:
+
+        .. list-table::
+            :widths: 20 20 50
+            :header-rows: 1
+
+            * - Fields
+              - Optional
+              - Permitted Values
+            * - field
+              - ``or prefix``
+              - ``string with max 64 characters``
+            * - prefix
+              - ``or field``
+              - ``string, possible values can be found in a request without prefix``
+
+        `Args`:
+            field: str
+                string with max 64 characters. target field for more information
+            prefix: str
+                string, prefix of fields. possible values can be found in a request without prefix
+        `Returns`:
+            Parsons Table
+                See :ref:`parsons-table` for output options.
+        """
+
+        if field is None and prefix is None:
+            raise ValueError("At least one of 'field' or 'prefix' must be provided")
+
+        url = self.connection.uri + 'service/dictionary'
+
+        args = {'field': field,
+                'prefix': prefix,
+                }
+
+        return Table([self.connection.request(url, args=args, raw=True)['result']])
+
+    def onboarding(self, platform: str, audience: str, status_email: str, ids: str,
+                   facebook_adid: str = None):
+        """
+        Create custom audience segments for digital ad targeting.
+        Upon Facebook onboarding workflow completion, the custom audience is
+        ready to be used in your Facebook platform ads.
+
+        .. list-table::
+            :widths: 20 20 50
+            :header-rows: 1
+
+            * - Fields
+              - Optional
+              - Permitted Values
+            * - platform
+              - ``X``
+              - ``facebook or liveramp``
+            * - audience
+              - ``X``
+              - ``string max 50 characters``
+            * - status_email
+              - ``X``
+              - ``string max 50 characters``
+            * - facebook_adid
+              - ````
+              - ``string``
+            * - ids
+              - ``X``
+              - ``comma separated list without spaces of valid Voterbase IDs``
+
+        `Args`:
+            platform: str
+                facebook or liveramp
+            audience: str
+                This paramater is your desired audience name. Accepts a string of up
+                to 50 characters, including spaces. This is the "Audience Name" that
+                will be used to create a custom audience.
+            status_email: str
+                An email address to receive status updates on your request
+            ids: str
+                A sorted comma separated list (without spaces) of valid Voterbase IDs
+            facebook_adid: str
+                Your Ad Account ID (required if ``platform``=``facebook``)
+        `Returns`:
+            boolean success
+        """
+
+        url = self.connection.uri + 'service/onboarding'
+
+        args = {
+            "platform": platform,
+            "audience": audience,
+
+        }
+
+        post_url = self.connection.request(url, args=args, raw=True)['url']
+
+        response = requests.post(post_url, json={
+            "status_email": status_email,
+            "ids": ids,
+            "facebook_adid": facebook_adid,
+        })
+
+        return response.status_code == 200
+
 
 class Voter(object):
 
