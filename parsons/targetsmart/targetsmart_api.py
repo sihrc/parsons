@@ -187,6 +187,100 @@ class Person(object):
 
         return Table(self.connection.request(url, args=args, raw=True)['result'])
 
+    def email(self, table, match_type=None, append_level=None, include_blank=None):
+        """
+        Match based a list up to 200 emails. Table
+        can contain up to 200 emails to match
+
+        `Args:`
+            table: parsons table
+                See :ref:`parsons-table`. One row per email,
+                up to 200 emails.
+            emails: str
+                A comma separated list of up to 200 valid emails
+            match_type: str
+                `H` or `I`  indicating if the email is matched at
+                the individual person level or at the household level
+            append_level: str
+                `Household` or `Individual` indicating the level of
+                the opt-in email address
+            include_blank: str
+                Include persons without specified `match_type` and
+                `append_level` included as optional parameter in the request
+        `Returns:`
+            See :ref:`parsons-table` for output options.
+        """
+
+        url = self.connection.uri + 'person/email-search'
+        args = {
+            'emails': list(petl.values(table.table, 0)),
+            "match_type": match_type,
+            "append_level": append_level,
+            "include_blank": include_blank,
+        }
+
+        args = {
+            key: value for key, value in args.items() if value is not None
+        }
+
+        return Table(self.connection.request(url, args=args, raw=True)['result'])
+
+    def listbuilder(self, where, mode, percentage=None, limit=25):
+        """
+        Low-latency record counting and list selection from the
+        TargetSmart platform database
+
+        `Args:`
+            where: str
+                SQL Where Clause e.g. "vb.vf_source_state = 'NY'"
+            mode: str
+                Choice of ["count", "list", "sample"]
+            percentage: int
+                Between 0 and 100 for mode = "sample"
+            limit: int
+                Integer in range [1, 500000] inclusive.
+        """
+        url = self.connection.uri + 'person/listbuilder'
+        args = {
+            "where": where,
+            "mode": mode,
+            "limit": limit
+        }
+
+        if mode == "sample":
+            args["percentage"] = percentage
+
+        args = {
+            key: value for key, value in args.items() if value is not None
+        }
+        response = self.connection.request(url, args=args, raw=True)
+        if mode == "count":
+            return response["count"]
+        return Table(response["list"])
+
+    def listjoiner(self, table, fields=None):
+        """
+        Match based a list up to 500 voter VoterBase IDs. Table
+        can contain up to 500 IDS to match
+
+        `Args:`
+            table: parsons table
+                See :ref:`parsons-table`. One row per VoterBase ID,
+                up to 500 IDs.
+            fields: List[str]
+                Configured data-enhance fields
+        """
+        fields = fields or []
+        url = self.connection.uri + 'person/listbuilder'
+
+        args = {
+            "ids": list(petl.values(table.table, 0))
+        }
+        if fields:
+            args["fields"] = ",".join(fields)
+
+        return Table(self.connection.request(url, args=args, raw=True)["result"])
+
 
 class Service(object):
 
