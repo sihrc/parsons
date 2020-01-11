@@ -538,9 +538,76 @@ class Voter(object):
 
         return self.connection.request(url, args=args, raw=True)
 
+    def voter_suggest(self, first_name=None, middle_name=None, last_name=None,
+                      state=None, street_number=None, street_name=None, city=None,
+                      zip_code=None, county=None, age=None, dob=None, phone=None,
+                      email=None, max_results=25):
+        """
+        Support for low-latency interactive search user interfaces allowing a user
+        to find a voter record with minimal keystrokes
+
+        Each request uses required and allowed keys. The ``state`` or ``zip_code`` are
+        required. If ``zip_code`` is provided and not ``state``, the leading 3 digits in
+        the ``zip_code`` will be used to look up the correct ``state``. Additionally,
+        each query must provide at least one valid character for any of the following:
+        ``first_name``, ``last_name``, ``middle_name``, ``street_name``, ``phone``, or ``email``. All other allowed keys shown in the following table are optional.
+
+        `Args:`
+        first_name
+            Alpha character followed by 0 or more * or alpha characters
+        middle_name
+            Alpha character followed by 0 or more * or alpha characters
+        last_name
+            Alpha character followed by 0 or more * or alpha characters
+        street_number
+            Alphanumeric character followed by 0 or more * or alphanumeric characters
+        street_name
+            Alphanumeric character followed by 0 or more * or alphanumeric characters
+        city
+            Alpha character followed by 0 or more * or alpha characters
+        state
+            wo character U.S. state code (e.g. ``NY``)
+        zip_code
+            3 Integers followed by 2 or more * or integers
+        county
+            Alphanumeric character followed by 0 or more * or alphanumeric characters
+        phone
+            Integer followed by 0 or more * or integers
+        email
+            Alphanumeric character followed by 0 or more * or legal characters (alphanumeric, @, -, .)
+        age
+            Integer followed by 0 or more * or integers
+        dob
+            Integers in YYYYMMDD format
+        max_results
+            An integer in range [1 - 50]
+        """
+        url = self.connection.uri + 'voter/voter-suggest'
+
+        if None in [first_name, last_name, state]:
+            raise ValueError("""Function must include at least first_name,
+                             last_name, and state.""")
+
+        args = {'first_name': first_name,
+                'last_name': last_name,
+                'state': state,
+                'street_number': street_number,
+                'street_name': street_name,
+                'city': city,
+                'zip_code': zip_code,
+                'age': age,
+                'dob': dob,
+                'phone': phone,
+                'email': email,
+                'max_results': max_results
+                }
+
+        return Table(
+            self.connection.request(url, args=args, raw=True)["potential_voter_matches"]
+        )
+
 
 class TargetSmartAPI(Voter, Person, Service):
 
     def __init__(self, api_key=None):
-
         self.connection = TargetSmartConnector(api_key=api_key)
