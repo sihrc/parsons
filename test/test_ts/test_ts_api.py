@@ -154,3 +154,16 @@ class TestTargetSmartAPI(unittest.TestCase):
         m.get(self.ts.connection.uri + 'person/email-search', json=email_response)
         self.assertTrue(validate_list(email_expected,
                                       self.ts.email(Table([{'email': "billy.blanks@chicago.com"}]))))
+
+    @requests_mock.Mocker()
+    def test_list_builder(self, m):
+        # Test Email
+        m.get(self.ts.connection.uri + 'person/listbuilder', json=listbuilder_response)
+        self.assertTrue(validate_list(listbuilder_expected,
+                                      self.ts.listbuilder("vb.tsmart_state = 'IL'", "list", limit=1)))
+
+    @requests_mock.Mocker()
+    def test_list_builder_count(self, m):
+        # Test Email
+        m.get(self.ts.connection.uri + 'person/listbuilder', json=listbuilder_count_response)
+        self.assertTrue(self.ts.listbuilder("vb.tsmart_state = 'IL'", "count", limit=1), 1)

@@ -256,7 +256,7 @@ class Person(object):
         response = self.connection.request(url, args=args, raw=True)
         if mode == "count":
             return response["count"]
-        return Table(response["list"])
+        return Table([{"vb.voterbase_id": res} for res in response["list"]])
 
     def listjoiner(self, table, fields=None):
         """

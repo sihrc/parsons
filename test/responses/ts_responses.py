@@ -205,7 +205,31 @@ email_expected = ['vb.voterid', 'vb.tsmart_full_address', 'vb.voterbase_age', 'v
 				  'vb.voterbase_registration_status', 'vb.vf_g2016', 'vb.tsmart_middle_name',
 				  'vb.tsmart_name_suffix']
 
+### LIST BUILDER RESPONSE
+listbuilder_response = {
+	"input": {
+		"mode": "list",
+		"where": "vb.tsmart_state = 'I'",
+		"limit": 1
+	},
+	"error": None,
+	"list": ["IL-12568678"],
+	'gateway_id': '17d19715-062c-11e9-aedb-3d74ea11c29c',
+	'function_id': '17d2818d-062c-11e9-a4a2-edee7fb1f969'
+}
 
+listbuilder_expected = ["vb.voterbase_id"]
 
+listbuilder_count_response = {
+	"input": {
+		"mode": "list",
+		"where": "vb.tsmart_state = 'I'",
+		"limit": 1
+	},
+	"error": None,
+	"count": 1,
+	'gateway_id': '17d19715-062c-11e9-aedb-3d74ea11c29c',
+	'function_id': '17d2818d-062c-11e9-a4a2-edee7fb1f969'
+}
 
 
