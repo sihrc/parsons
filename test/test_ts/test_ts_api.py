@@ -106,13 +106,13 @@ class TestTargetSmartAPI(unittest.TestCase):
 
         self.assertTrue(validate_list(expected, rad_search()))
 
-    def test_district_args(self):
 
-    	self.assertRaises(ValueError, self.ts.district, search_type='address')
-    	self.assertRaises(ValueError, self.ts.district, search_type='zip', zip4=9)
-    	self.assertRaises(ValueError, self.ts.district, search_type='zip', zip5=0)
-    	self.assertRaises(ValueError, self.ts.district, search_type='point')
-    	self.assertRaises(ValueError, self.ts.district, search_type='zip')
+    def test_district_args(self):
+        self.assertRaises(ValueError, self.ts.district, search_type='address')
+        self.assertRaises(ValueError, self.ts.district, search_type='zip', zip4=9)
+        self.assertRaises(ValueError, self.ts.district, search_type='zip', zip5=0)
+        self.assertRaises(ValueError, self.ts.district, search_type='point')
+        self.assertRaises(ValueError, self.ts.district, search_type='zip')
 
     @requests_mock.Mocker()
     def test_district_point(self, m):
@@ -147,3 +147,10 @@ class TestTargetSmartAPI(unittest.TestCase):
         m.get(self.ts.connection.uri + 'person/phone-search', json=phone_response)
         self.assertTrue(validate_list(phone_expected,
                                       self.ts.phone(Table([{'phone': 4435705355}]))))
+
+    @requests_mock.Mocker()
+    def test_email(self, m):
+        # Test Email
+        m.get(self.ts.connection.uri + 'person/email-search', json=email_response)
+        self.assertTrue(validate_list(email_expected,
+                                      self.ts.email(Table([{'email': "billy.blanks@chicago.com"}]))))
