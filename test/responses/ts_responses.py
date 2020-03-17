@@ -9,7 +9,7 @@ district_match = {'vb.vf_reg_cass_state': 'IL', 'vb.vf_reg_cass_zip': '60622',
 			  	  'vb.vf_county_code': '031', 'vb.vf_county_name': 'CITY OF CHICAGO',
 			  	  'vb.vf_sd': '002', 'vb.vf_hd': '004', 'vb.vf_cd': '007', 'vb.vf_city_council':
 			  	  '', 'vb.vf_municipal_district': 'CHICAGO', 'vb.vf_county_council': '08',
-			  	  'vb.vf_judicial_district': 'CHICAGO', 'vb.vf_school_district': 'CHICAGO PUBLIC SCHOOLS', 
+			  	  'vb.vf_judicial_district': 'CHICAGO', 'vb.vf_school_district': 'CHICAGO PUBLIC SCHOOLS',
 			  	  'distance_away_km': 0.0, 'statezip5zip4': 'il606227194', 'zip5zip4':
 			  	  '606227194', 'FilteredFirstCut.vb.vf_reg_cass_state': 'IL',
 			  	  'FilteredFirstCut.vb.vf_reg_cass_zip': '60622',
@@ -29,14 +29,14 @@ district_match = {'vb.vf_reg_cass_state': 'IL', 'vb.vf_reg_cass_zip': '60622',
 			  	  -87.694382}
 
 district_point = {'input': {'search_type': 'point', 'latitude': '41.898369',
-				 'longitude': '-87.694382'}, 'error': None, 'match_found': True, 
+				 'longitude': '-87.694382'}, 'error': None, 'match_found': True,
 				 'match_data': district_match,
 				 'gateway_id': '782cbcf0-039c- 11e9-a8b0-37650c25b496',
 				 'function_id': '782dce4b-039c-11e9-8056-390eede430de'}
 
-district_zip = {'input': {'search_type': 'zip', 'zip5': '60622', 'zip4': '7194'}, 
+district_zip = {'input': {'search_type': 'zip', 'zip5': '60622', 'zip4': '7194'},
 				'error': None, 'match_found': True, 'match_data': {'vb.vf_reg_cass_state': 'IL',
-				'vb.vf_reg_cass_zip': '60622', 'vb.reg_cass_zip4': '7194', 
+				'vb.vf_reg_cass_zip': '60622', 'vb.reg_cass_zip4': '7194',
 				'vb.vf_precinct_id': '36', 'vb.vf_precinct_name': 'CITY OF CHICAGO W-26 P-36',
 				'vb.vf_ward': '26', 'vb.vf_township': '', 'vb.vf_county_code': '031',
 				'vb.vf_county_name': 'CITY OF CHICAGO', 'vb.vf_sd': '002', 'vb.vf_hd': '004',
@@ -62,18 +62,18 @@ district_expected = ['vb.vf_reg_cass_state', 'vb.vf_reg_cass_zip', 'vb.reg_cass_
 		 			 'FilteredFirstCut.vb.vf_township',
 		 			 'FilteredFirstCut.vb.vf_county_code',
 		 			 'FilteredFirstCut.vb.vf_county_name',
-		 			 'FilteredFirstCut.vb.vf_sd', 
-		 			 'FilteredFirstCut.vb.vf_hd', 'FilteredFirstCut.vb.vf_cd', 
+		 			 'FilteredFirstCut.vb.vf_sd',
+		 			 'FilteredFirstCut.vb.vf_hd', 'FilteredFirstCut.vb.vf_cd',
 		 			 'FilteredFirstCut.vb.vf_city_council',
 		 			 'FilteredFirstCut.vb.vf_municipal_district',
 		 			 'FilteredFirstCut.vb.vf_county_council',
 		 			 'FilteredFirstCut.vb.vf_judicial_district',
 					 'FilteredFirstCut.vb.vf_school_district',
-					 'voters_in_district', 'z9_latitude', 
+					 'voters_in_district', 'z9_latitude',
 		 			 'z9_longitude']
 
 address_response = {'input': {'address': '100 N Main St, Chicago, IL 60622',
-					'search_type': 'address'}, 'error': None, 'match_found': True, 'match_data': 
+					'search_type': 'address'}, 'error': None, 'match_found': True, 'match_data':
 					district_match,
 					'gateway_id': 'febd57bc-03bb-11e9-ad98-592b0545ec68',
 					'function_id': 'febdf462-03bb-11e9-a944-25816baaec7e'}
@@ -133,7 +133,7 @@ radius_response = {'input': {'first_name': 'Billy', 'last_name': 'Blanks',
 radius_expected = ['similarity_score', 'distance_km', 'distance_meters', 'distance_miles',
 				   'distance_feet', 'proximity_score', 'composite_score', 'uniqueness_score',
 				   'confidence_indicator', 'ts.tsmart_midterm_general_turnout_score',
-				   'vb.tsmart_city', 'vb.tsmart_first_name', 'vb.tsmart_full_address', 
+				   'vb.tsmart_city', 'vb.tsmart_first_name', 'vb.tsmart_full_address',
 				   'vb.tsmart_last_name', 'vb.tsmart_middle_name', 'vb.tsmart_name_suffix',
 				   'vb.tsmart_partisan_score', 'vb.tsmart_precinct_id', 'vb.tsmart_precinct_name',
 				   'vb.tsmart_state', 'vb.tsmart_zip', 'vb.tsmart_zip4',
@@ -144,8 +144,8 @@ radius_expected = ['similarity_score', 'distance_km', 'distance_meters', 'distan
 				   'vb.voterbase_gender', 'vb.voterbase_id', 'vb.voterbase_phone',
 				   'vb.voterbase_registration_status', 'vb.voterid']
 
-phone_response = {'input': {'phones': '4435705356'}, 
-				 'error': None, 'result': 
+phone_response = {'input': {'phones': '4435705356'},
+				 'error': None, 'result':
 				 					[{'vb.voterid': 'Q8W8652Y',
 				 					'vb.tsmart_full_address': '908 N MAIN AVE APT 2',
 				 					'vb.voterbase_age': '37',
@@ -163,7 +163,7 @@ phone_response = {'input': {'phones': '4435705356'},
 				 					'vb.voterbase_registration_status': 'Registered',
 				 					'vb.vf_g2016': 'Y',
 				 					'vb.tsmart_middle_name': 'H',
-				 					'vb.tsmart_name_suffix': ''}], 
+				 					'vb.tsmart_name_suffix': ''}],
 				 'gateway_id': '17d19715-062c-11e9-aedb-3d74ea11c29c',
 				 'function_id': '17d2818d-062c-11e9-a4a2-edee7fb1f969'}
 
@@ -174,7 +174,62 @@ phone_expected = ['vb.voterid', 'vb.tsmart_full_address', 'vb.voterbase_age', 'v
 				  'vb.voterbase_registration_status', 'vb.vf_g2016', 'vb.tsmart_middle_name',
 				  'vb.tsmart_name_suffix']
 
+### Email Search Response
+email_response = {'input': {'email': 'billy.blanks@chicago.com'},
+				 'error': None, 'result':
+				 					[{'vb.voterid': 'Q8W8652Y',
+				 					'vb.tsmart_full_address': '908 N MAIN AVE APT 2',
+				 					'vb.voterbase_age': '37',
+				 					'vb.tsmart_first_name': 'BILLY',
+				 					'vb.voterbase_phone': '4435705355',
+				 					'vb.vf_g2014': 'Y',
+				 					'vb.tsmart_last_name': 'BLANKS',
+				 					'vb.tsmart_zip': '50622',
+				 					'vb.tsmart_state': 'IL',
+				 					'vb.voterbase_gender': 'Male',
+				 					'vb.tsmart_city': 'CHICAGO',
+				 					'vb.tsmart_partisan_score': '99.6',
+				 					'ts.tsmart_midterm_general_turnout_score': '85.5',
+				 					'vb.voterbase_id': 'IL-12568678',
+				 					'vb.voterbase_registration_status': 'Registered',
+				 					'vb.vf_g2016': 'Y',
+				 					'vb.tsmart_middle_name': 'H',
+				 					'vb.tsmart_name_suffix': ''}],
+				 'gateway_id': '17d19715-062c-11e9-aedb-3d74ea11c29c',
+				 'function_id': '17d2818d-062c-11e9-a4a2-edee7fb1f969'}
 
+email_expected = ['vb.voterid', 'vb.tsmart_full_address', 'vb.voterbase_age', 'vb.tsmart_first_name',
+				  'vb.voterbase_phone', 'vb.vf_g2014', 'vb.tsmart_last_name', 'vb.tsmart_zip',
+				  'vb.tsmart_state', 'vb.voterbase_gender', 'vb.tsmart_city', 'vb.tsmart_partisan_score',
+				  'ts.tsmart_midterm_general_turnout_score', 'vb.voterbase_id',
+				  'vb.voterbase_registration_status', 'vb.vf_g2016', 'vb.tsmart_middle_name',
+				  'vb.tsmart_name_suffix']
 
+### LIST BUILDER RESPONSE
+listbuilder_response = {
+	"input": {
+		"mode": "list",
+		"where": "vb.tsmart_state = 'I'",
+		"limit": 1
+	},
+	"error": None,
+	"list": ["IL-12568678"],
+	'gateway_id': '17d19715-062c-11e9-aedb-3d74ea11c29c',
+	'function_id': '17d2818d-062c-11e9-a4a2-edee7fb1f969'
+}
+
+listbuilder_expected = ["vb.voterbase_id"]
+
+listbuilder_count_response = {
+	"input": {
+		"mode": "list",
+		"where": "vb.tsmart_state = 'I'",
+		"limit": 1
+	},
+	"error": None,
+	"count": 1,
+	'gateway_id': '17d19715-062c-11e9-aedb-3d74ea11c29c',
+	'function_id': '17d2818d-062c-11e9-a4a2-edee7fb1f969'
+}
 
 
